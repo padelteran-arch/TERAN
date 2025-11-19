@@ -1,0 +1,78 @@
+:root{
+  --bg: linear-gradient(180deg,#dbe8ff,#f8fbff);
+  --card: #ffffff;
+  --accent: #2d72ff;
+  --accent-light: #8cbcfe;
+  --text-dark:#0b2545;
+  --muted:#5b6b82;
+  --shadow:0 8px 28px rgba(16,40,100,0.08);
+  --radius:14px;
+}
+
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Poppins',Arial, sans-serif;color:var(--text-dark)}
+.uppercase{text-transform:uppercase}
+.small{font-size:12px}
+.muted{color:var(--muted)}
+
+.app{max-width:520px;margin:12px auto;padding:12px}
+
+/* TITLE (más grande + latido) */
+.app-title{
+  font-size:36px;
+  text-align:center;
+  margin:8px 0 12px;
+  font-weight:900;
+  color:#07398f;
+  letter-spacing:1px;
+  animation: titleBeat 2.8s ease-in-out infinite;
+}
+@keyframes titleBeat{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+
+/* header */
+.header-principal{background:var(--card);padding:14px;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px}
+.fecha-hora-top{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:15px;margin-bottom:8px}
+.clima-km-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.clima-container{display:flex;gap:10px;align-items:center}
+.clima-container img{width:46px;height:46px}
+.km-container label{font-size:12px;color:var(--muted);display:block}
+.km-container input{width:120px;padding:10px;border-radius:10px;border:1px solid #dbeeff;font-weight:800;text-align:center}
+
+/* accesos */
+.accesos-container{display:grid;gap:12px;margin-top:12px}
+.btn-acceso{padding:18px;border-radius:12px;border:0;background:linear-gradient(180deg,var(--accent),var(--accent-light));color:#fff;font-size:20px;cursor:pointer;box-shadow:var(--shadow);font-weight:800}
+
+/* card & forms */
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);margin-bottom:12px}
+.card-header{display:flex;justify-content:space-between;align-items:center}
+
+input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #e6f0ff;margin-top:8px;font-size:15px}
+textarea{min-height:80px;resize:vertical}
+
+/* buttons */
+.row{display:flex;align-items:center}
+.gap{gap:10px}
+.btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:800}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:#fff;border:1px solid #d7e6ff;color:var(--accent);padding:10px 14px}
+
+/* lists */
+.list{margin-top:10px}
+.list .item{background:#fbfdff;padding:12px;border-radius:12px;margin-bottom:10px;border:1px solid #eef6ff}
+.pasajero-card{border:1px dashed #cfe3ff;padding:12px;border-radius:12px;margin-bottom:12px;background:#fff}
+
+/* previews */
+.preview-row{display:flex;gap:8px;margin-top:8px}
+.preview-row img{width:86px;height:66px;object-fit:cover;border-radius:8px;border:1px solid #e6eef8}
+
+/* PDF visual helpers (on-screen) */
+.pdf-preview { border:2px solid #7da2ff; padding:10px; border-radius:10px; background:#fff; }
+
+/* helpers */
+.muted.small{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pantalla{display:none;animation:fadeIn .32s ease}
+.pantalla.activo{display:block}

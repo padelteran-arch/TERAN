@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VIAJES TERÁN</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- PANTALLA INICIO -->
+    <section id="pantalla-inicio" class="pantalla activo">
+      <h1 class="app-title">VIAJES TERÁN</h1>
+
+      <div class="header-principal">
+        <div class="fecha-hora-top">
+          <div id="fecha" class="fecha-left"></div>
+          <div id="hora" class="hora-right"></div>
+        </div>
+
+        <div class="clima-km-row">
+          <div class="clima-container">
+            <img id="icono-clima" src="" alt="clima" />
+            <div id="temp">--°C</div>
+          </div>
+
+          <div class="km-container">
+            <label for="km-vehiculo">KM</label>
+            <input id="km-vehiculo" type="number" inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+
+      <div class="accesos-container">
+        <button class="btn-acceso" data-target="nuevo-viaje">🚗 NUEVO VIAJE</button>
+        <button class="btn-acceso" data-target="historial">📘 HISTORIAL</button>
+        <button class="btn-acceso" data-target="pasajeros">👥 PASAJEROS</button>
+        <button class="btn-acceso" data-target="informacion">📄 INFORMACIÓN</button>
+        <button class="btn-acceso" data-target="ganancias">💰 GANANCIA</button>
+      </div>
+    </section>
+
+    <!-- NUEVO VIAJE -->
+    <section id="nuevo-viaje" class="pantalla oculto">
+      <header class="pantalla-header">
+        <button class="back-btn" data-target="pantalla-inicio">←</button>
+        <h2>NUEVO VIAJE</h2>
+      </header>
+
+      <div class="card">
+        <label>FECHA</label>
+        <input id="trip-date" type="date" />
+
+        <label>HORA</label>
+        <input id="trip-time" type="time" />
+
+        <label>INICIO (PARTIDA)</label>
+        <input id="trip-origin" type="text" placeholder="Lugar de partida" />
+
+        <label>FIN (LLEGADA)</label>
+        <input id="trip-destination" type="text" placeholder="Lugar de llegada" />
+
+        <label>OBSERVACIONES</label>
+        <textarea id="trip-notes" placeholder="Observaciones (opcional)"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>PASAJEROS <small id="passenger-count">(0 / 4)</small></h3>
+        </div>
+
+        <div id="passenger-forms" class="passenger-forms"></div>
+
+        <div class="row gap">
+          <button id="btn-add-passenger" class="btn btn-ghost">AÑADIR</button>
+          <button id="btn-start-trip" class="btn btn-primary">INICIAR VIAJE (GENERAR PDF)</button>
+        </div>
+
+        <p class="muted small">Máx. 4 pasajeros. Campos opcionales. Usa la cámara si estás en celular.</p>
+      </div>
+    </section>
+
+    <!-- HISTORIAL -->
+    <section id="historial" class="pantalla oculto">
+      <header class="pantalla-header">
+        <button class="back-btn" data-target="pantalla-inicio">←</button>
+        <h2>HISTORIAL</h2>
+      </header>
+
+      <div class="card">
+        <div class="row gap">
+          <div><label>DESDE</label><input id="filter-from" type="date" /></div>
+          <div><label>HASTA</label><input id="filter-to" type="date" /></div>
+          <div><label>PARTIDA</label><input id="filter-origin" type="text" placeholder="(opcional)" /></div>
+          <div><label>LLEGADA</label><input id="filter-destination" type="text" placeholder="(opcional)" /></div>
+        </div>
+
+        <div class="row gap" style="margin-top:10px">
+          <button id="btn-filter-history" class="btn btn-ghost">FILTRAR</button>
+          <button id="btn-generate-history-pdf" class="btn btn-primary">GENERAR PDF</button>
+        </div>
+      </div>
+
+      <div id="history-list" class="list"></div>
+    </section>
+
+    <!-- PASAJEROS -->
+    <section id="pasajeros" class="pantalla oculto">
+      <header class="pantalla-header">
+        <button class="back-btn" data-target="pantalla-inicio">←</button>
+        <h2>PASAJEROS</h2>
+      </header>
+
+      <div class="card row gap">
+        <input id="search-dni" type="text" placeholder="BUSCAR POR DNI" />
+        <button id="btn-search-dni" class="btn btn-ghost">BUSCAR</button>
+        <button id="btn-generate-passengers-pdf" class="btn btn-primary">GEN. PDF</button>
+      </div>
+
+      <div id="passenger-db-list" class="list"></div>
+    </section>
+
+    <!-- INFORMACIÓN VEHÍCULO -->
+    <section id="informacion" class="pantalla oculto">
+      <header class="pantalla-header">
+        <button class="back-btn" data-target="pantalla-inicio">←</button>
+        <h2>INFORMACIÓN DEL VEHÍCULO</h2>
+      </header>
+
+      <div class="card">
+        <label>MARCA</label><input id="veh-brand" type="text" />
+        <label>MODELO</label><input id="veh-model" type="text" />
+        <label>PATENTE</label><input id="veh-plate" type="text" />
+        <label>N° CHASIS</label><input id="veh-chassis" type="text" />
+        <label>N° MOTOR</label><input id="veh-engine" type="text" />
+      </div>
+
+      <div class="card">
+        <h3>DOCUMENTOS</h3>
+        <div id="docs-list" class="list"></div>
+        <div class="row gap" style="margin-top:10px">
+          <input id="new-doc-title" type="text" placeholder="Título del documento" />
+          <input id="new-doc-file" type="file" accept="application/pdf" />
+          <button id="btn-add-doc" class="btn btn-primary">AÑADIR</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GANANCIAS -->
+    <section id="ganancias" class="pantalla oculto">
+      <header class="pantalla-header">
+        <button class="back-btn" data-target="pantalla-inicio">←</button>
+        <h2>GANANCIA</h2>
+      </header>
+
+      <div class="card">
+        <div class="row gap">
+          <div><label>PRECIO POR PASAJERO</label><input id="price-per-passenger" type="number" value="20000" /></div>
+          <div><label>GASTO FIJO POR VIAJE</label><input id="fixed-cost" type="number" value="15000" /></div>
+        </div>
+
+        <div class="row gap" style="margin-top:10px">
+          <div><label>DESDE</label><input id="profit-from" type="date" /></div>
+          <div><label>HASTA</label><input id="profit-to" type="date" /></div>
+          <div style="align-self:flex-end"><button id="btn-calc-profit" class="btn btn-primary">CALCULAR</button></div>
+        </div>
+
+        <div id="profit-results" class="muted small" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
